@@ -1,32 +1,90 @@
 # Industrial_Copper_Modelling-Project
 
-Applications Needed:
-1. Python.
-2. IDE - VS Code/Jupyter Notebook/Collab.
+# **Introduction**
 
-Libraries to Import:
-1. Streamlit - 'pip install streamlit'.
-2. pandas - 'pip install pandas'
-3. SciKit Learn - 'pip install scikit-learn'
+Enhance your proficiency in data analysis and machine learning with our "Industrial Copper Modeling" project. In the copper industry, dealing with complex sales and pricing data can be challenging. Our solution employs advanced machine learning techniques to address these challenges, offering regression models for precise pricing predictions and lead classification for better customer targeting. You'll also gain experience in data preprocessing, feature engineering, and web application development using Streamlit, equipping you to solve real-world problems in manufacturing.
 
-Problem Statement: The copper industry deals with less complex data related to sales and pricing. However, this data may suffer from issues such as skewness and noisy data, which can affect the accuracy of manual predictions. Dealing with these challenges manually can be time-consuming and may not result in optimal pricing decisions. A machine learning regression model can address these issues by utilizing advanced techniques such as data normalization, feature scaling, and outlier detection, and leveraging algorithms that are robust to skewed and noisy data. Another area where the copper industry faces challenges is in capturing the leads. A lead classification model is a system for evaluating and classifying leads based on how likely they are to become a customer . You can use the STATUS variable with WON being considered as Success and LOST being considered as Failure and remove data points other than WON, LOST STATUS values. The solution must include the following steps: Exploring skewness and outliers in the dataset. Transform the data into a suitable format and perform any necessary cleaning and pre-processing steps. ML Regression model which predicts continuous variable ‘Selling_Price’. ML Classification model which predicts Status: WON or LOST. Creating a streamlit page where you can insert each column value and you will get the Selling_Price predicted value or Status(Won/Lost)
+**Table of Contents**
 
-Approach: Data Understanding: Identify the types of variables (continuous, categorical) and their distributions. Some rubbish values are present in ‘Material_Reference’ which starts with ‘00000’ value which should be converted into null. Treat reference columns as categorical variables. INDEX may not be useful. Data Preprocessing: Handle missing values with mean/median/mode. Treat Outliers using IQR or Isolation Forest from sklearn library. Identify Skewness in the dataset and treat skewness with appropriate data transformations, such as log transformation(which is best suited to transform target variable-train, predict and then reverse transform it back to original scale eg:dollars), boxcox transformation, or other techniques, to handle high skewness in continuous variables. Encode categorical variables using suitable techniques, such as one-hot encoding, label encoding, or ordinal encoding, based on their nature and relationship with the target variable. EDA: Try visualizing outliers and skewness(before and after treating skewness) using Seaborn’s boxplot, distplot, violinplot. Feature Engineering: Engineer new features if applicable, such as aggregating or transforming existing features to create more informative representations of the data. And drop highly correlated columns using SNS HEATMAP. Model Building and Evaluation: Split the dataset into training and testing/validation sets. Train and evaluate different classification models, such as ExtraTreesClassifier, XGBClassifier, or Logistic Regression, using appropriate evaluation metrics such as accuracy, precision, recall, F1 score, and AUC curve. Optimize model hyperparameters using techniques such as cross-validation and grid search to find the best-performing model. Interpret the model results and assess its performance based on the defined problem statement. Same steps for Regression modelling.(note: dataset contains more noise and linearity between independent variables so itll perform well only with tree based models) Model GUI: Using streamlit module, create interactive page with (1) task input( Regression or Classification) and (2) create an input field where you can enter each column value except ‘Selling_Price’ for regression model and except ‘Status’ for classification model. (3) perform the same feature engineering, scaling factors, log/any transformation steps which you used for training ml model and predict this new data from streamlit and display the output. Tips: Use pickle module to dump and load models such as encoder(onehot/ label/ str.cat.codes /etc), scaling models(standard scaler), ML models. First fit and then transform in separate line and use transform only for unseen data Eg: scaler = StandardScaler() scaler.fit(X_train) scaler.transform(X_train) scaler.transform(X_test_new) #unseen data
+Key Technologies and Skills
+Installation
+Usage
+Features
+Contributing
+License
+Contact
+Key Technologies and Skills
 
-The learning outcomes of this project are:
+Python
+Numpy
+Pandas
+Scikit-Learn
+Matplotlib
+Seaborn
+Pickle
+Streamlit
+Installation
 
-Developing proficiency in Python programming language and its data analysis libraries such as Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, and Streamlit.
+To run this project, you need to install the following packages:
 
-Gaining experience in data preprocessing techniques such as handling missing values, outlier detection, and data normalization to prepare data for machine learning modeling.
+pip install numpy
+pip install pandas
+pip install scikit-learn
+pip install xgboost
+pip install matplotlib
+pip install seaborn
+pip install streamlit
 
-Understanding and visualizing the data using EDA techniques such as boxplots, histograms, and scatter plots.
+**Data Preprocessing:**
 
-Learning and applying advanced machine learning techniques such as regression and classification to predict continuous and binary target variables, respectively.
+*Data Understanding*: Before diving into modeling, it's crucial to gain a deep understanding of your dataset. Start by identifying the types of variables within it, distinguishing between continuous and categorical variables, and examining their distributions. In our dataset, there might be some unwanted values in the 'Material_Ref' feature that start with '00000.' These values should be converted to null for better data integrity.
 
-Building and optimizing machine learning models using appropriate evaluation metrics and techniques such as cross-validation and grid search.
+*Handling Null Values*: The dataset may contain missing values that need to be addressed. The choice of handling these null values, whether through mean, median, or mode imputation, depends on the nature of the data and the specific feature.
 
-Experience in feature engineering techniques to create new informative representations of the data.
+*Encoding and Data Type Conversion*: To prepare categorical features for modeling, we employ ordinal encoding. This technique transforms categorical values into numerical representations based on their intrinsic nature and their relationship with the target variable. Additionally, it's essential to convert data types to ensure they match the requirements of our modeling process.
 
-Developing a web application using the Streamlit module to showcase the machine learning models and make predictions on new data.
+*Skewness - Feature Scaling*: Skewness is a common challenge in datasets. Identifying skewness in the data is essential, and appropriate data transformations must be applied to mitigate it. One widely-used method is the log transformation, which is particularly effective in addressing high skewness in continuous variables. This transformation helps achieve a more balanced and normally-distributed dataset, which is often a prerequisite for many machine learning algorithms.
 
-Understanding the challenges and best practices in the manufacturing domain and how machine learning can help solve them.
+*Outliers Handling*: Outliers can significantly impact model performance. We tackle outliers in our data by using the Interquartile Range (IQR) method. This method involves identifying data points that fall outside the IQR boundaries and then converting them to values that are more in line with the rest of the data. This step aids in producing a more robust and accurate model.
+
+*Wrong Date Handling*: In cases where some delivery dates are precedes the item dates, we resolve this issue by calculating the difference and it's used to train a Random Forest Regressor model, which enables us to predict the corrected delivery date. This approach ensures that our dataset maintains data integrity and accuracy.
+
+*Exploratory Data Analysis (EDA) and Feature Engineering:*
+
+*Skewness Visualization:* To enhance data distribution uniformity, we visualize and correct skewness in continuous variables using Seaborn's Histplot and Violinplot. By applying the Log Transformation method, we achieve improved balance and normal distribution, while ensuring data integrity.
+
+*Outlier Visualization:* We identify and rectify outliers by leveraging Seaborn's Boxplot. This straightforward visualization aids in pinpointing outlier-rich features. Our chosen remedy is the Interquartile Range (IQR) method, which brings outlier data points into alignment with the rest of the dataset, bolstering its resilience.
+
+*Feature Improvement:* Our focus is on improving our dataset for more effective modeling. We achieve this by creating new features to gain deeper insights from the data while making the dataset more efficient. Notably, our evaluation, facilitated by Seaborn's Heatmap, confirms that no columns exhibit strong correlation, with the highest correlation value at just 0.42 (absolute value), underlining our commitment to data quality and affirming that there's no need to drop any columns.
+
+**Classification:**
+
+*Success and Failure Classification:* In our predictive journey, we utilize the 'status' variable, defining 'Won' as Success and 'Lost' as Failure. Data points with status values other than 'Won' and 'Lost' are excluded from our dataset to focus on the core classification task.
+
+*Handling Data Imbalance:* In our predictive analysis, we encountered data imbalance within the 'status' feature. To address this issue, we implemented the SMOTETomek oversampling method, ensuring our dataset is well-balanced. This enhancement significantly enhances the performance and reliability of our classification tasks, yielding more accurate results in distinguishing between success and failure.
+
+*Algorithm Assessment:* In the realm of classification, our primary objective is to predict the categorical variable of status. The dataset is thoughtfully divided into training and testing subsets, setting the stage for our classification endeavor. We apply various algorithms to assess their performance and select the most suitable base algorithm for our specific data.
+
+*Algorithm Selection:* After thorough evaluation, two contenders, the Extra Trees Classifier and Random Forest Classifier, demonstrate commendable testing accuracy. Upon checking for any overfitting issues in both training and testing, both models exhibit strong performance without overfitting concerns. I choose the Random Forest Classifier for its ability to strike a balance between interpretability and accuracy, ensuring robust performance on unseen data.
+
+*Hyperparameter Tuning with GridSearchCV and Cross-Validation:* To fine-tune our model and mitigate overfitting, we employ GridSearchCV with cross-validation for hyperparameter tuning. This function allows us to systematically explore multiple parameter values and return the optimal set of parameters. {'max_depth': 20, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2}
+
+*Model Accuracy and Metrics:* With the optimized parameters, our Random Forest Classifier achieves an impressive 96.5% accuracy, ensuring robust predictions for unseen data. To further evaluate our model, we leverage key metrics such as the confusion matrix, precision, recall, F1-score, AUC, and ROC curve, providing a comprehensive view of its performance.
+
+*Model Persistence:* We conclude this phase by saving our well-trained model to a pickle file. This enables us to effortlessly load the model and make predictions on the status whenever needed, streamlining future applications.
+
+**Regression:**
+
+Algorithm Assessment: In the realm of regression, our primary objective is to predict the continuous variable of selling price. Our journey begins by splitting the dataset into training and testing subsets. We systematically apply various algorithms, evaluating them based on training and testing accuracy using the R2 (R-squared) metric, which signifies the coefficient of determination. This process allows us to identify the most suitable base algorithm tailored to our specific data.
+
+Algorithm Selection: After thorough evaluation, two contenders, the Extra Trees Regressor and Random Forest Regressor, demonstrate commendable testing accuracy. Upon checking for any overfitting issues in both training and testing, both models exhibit strong performance without overfitting concerns. I choose the Random Forest Regressor for its ability to strike a balance between interpretability and accuracy, ensuring robust performance on unseen data.
+
+Hyperparameter Tuning with GridSearchCV and Cross-Validation: To fine-tune our model and mitigate overfitting, we employ GridSearchCV with cross-validation for hyperparameter tuning. This function allows us to systematically explore multiple parameter values and return the optimal set of parameters. {'max_depth': 20, 'max_features': None, 'min_samples_leaf': 1, 'min_samples_split': 2}.
+
+Model Accuracy and Metrics: With the optimized parameters, our Random Forest Regressor achieves an impressive 95.7% accuracy. This level of accuracy ensures robust predictions for unseen data. We further evaluate our model using essential metrics such as mean absolute error, mean squared error, root mean squared error, and the coefficient of determination (R-squared). These metrics provide a comprehensive assessment of our model's performance.
+
+Model Persistence: We conclude this phase by saving our well-trained model to a pickle file. This strategic move enables us to effortlessly load the model whenever needed, streamlining the process of making predictions on selling prices in future applications.
+
+
+
+
